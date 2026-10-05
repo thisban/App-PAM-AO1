@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AppAO1</string>
+    <string name="txt_login_title">Iniciar Sesión</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="hint_user">Usuario</string>
+    <string name="hint_pass">Contraseña</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_surname">Apellido</string>
+    <string name="hint_address">Domicilio</string>
+    <string name="hint_tel_number">Teléfono</string>
+    <string name="txt_gender">Seleccione el género</string>
+    <string name="btn_round_1">Masculino</string>
+    <string name="btn_round_2">Femenino</string>
+    <string name="txt_search">Buscar contactos</string>
+    <string name="txt_new_contact">Añadir contacto</string>
+    <string name="txt_empty_list">No existen contactos para mostrar</string>
+    <string name="txt_btn_new_contact">Agregue contactos desde acá</string>
+</resources>
