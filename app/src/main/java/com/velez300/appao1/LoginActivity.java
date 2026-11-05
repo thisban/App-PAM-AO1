@@ -25,21 +25,25 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        TextInputEditText txtUser = binding.txtUser;
-        TextInputEditText txtPass = binding.txtPass;
+        String txtUser = binding.txtUser.getText().toString().trim();
+        String txtPass = binding.txtPass.getText().toString().trim();
         Button btnIngresar = binding.btnIngresar;
 
         btnIngresar.setOnClickListener(v -> {
             //CONTROLA QUE SE INGRESE EL USUARIO Y QUE LA CONTRASEÑA SEA CORRECTA
-            if (txtUser.getText().toString().length() > 0 && txtPass.getText().toString().trim().equals(clave)){
-                SessionManager.getInstance().login();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+            if (!txtUser.isEmpty() && txtPass.equals(clave)){
+                SessionManager.getInstance(getApplicationContext()).newLoginSession(txtUser);
+                goToApp();
             }
             else {
                 Toast.makeText(LoginActivity.this, "Reintentar. Inicio de Sesión Incorrecto", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void goToApp(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,13 +33,9 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         //SESSION MANAGER
-        boolean session = SessionManager.getInstance().isLoggedIn();
-
-        if (!session){
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        SessionManager session = SessionManager.getInstance(getApplicationContext());
+        SplashScreen login = new SplashScreen();
+        login.loginValidation(session);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -50,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgEmpty = binding.imgEmpty;
         TextView txtAddContact = binding.txtAddContact;
         FloatingActionButton btnAddContact = binding.btnAddContact;
+        Button btnLogOut = binding.btnLogOut;
 
         //CARGA LOS DATOS EN EL RECYCLER VIEW
         ArrayList<Contact> numbersList = ContactList.getInstance().getContacts();
@@ -95,9 +93,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //FUNCIONALIDAD DEL BOTON DE BUSQUEDA (LUPA)
-        btnSearch.setOnClickListener(v -> {
-            filterInput(txtSearchBar.getText(),numbersList,adapt);
-        });
+        btnSearch.setOnClickListener(v -> filterInput(txtSearchBar.getText(),numbersList,adapt));
+
+        //FUNCIONALIDAD DEL BOTON DE CERRAR SESIÓN
+        btnLogOut.setOnClickListener( v -> session.logOut());
     }
     public void filterInput(CharSequence word, ArrayList<Contact> list, Adapt a){
         String input = word.toString().toLowerCase().trim();

@@ -17,13 +17,18 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         androidx.core.splashscreen.SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
+        SessionManager session = SessionManager.getInstance(getApplicationContext());
+        loginValidation(session);
+    }
 
-        boolean session = SessionManager.getInstance().isLoggedIn();
-
-        if (!session){
-            Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+    public void loginValidation(SessionManager session){
+        if (session.isLoggedIn()){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-            finish();
+        } else{
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
         }
+        finish();
     }
 }
